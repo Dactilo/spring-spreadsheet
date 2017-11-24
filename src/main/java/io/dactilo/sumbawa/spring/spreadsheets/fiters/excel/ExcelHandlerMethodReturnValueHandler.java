@@ -1,7 +1,6 @@
 package io.dactilo.sumbawa.spring.spreadsheets.fiters.excel;
 
-import io.dactilo.sumbawa.spring.spreadsheets.converter.api.JacksonToSpreadsheetConverter;
-import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVStreamer;
+import io.dactilo.sumbawa.spring.spreadsheets.converter.api.ObjectToSpreadsheetConverter;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.excel.ExcelStreamer;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -11,17 +10,16 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
 
 public class ExcelHandlerMethodReturnValueHandler extends AbstractHttpMessageConverter<Object> {
     private final ExcelStreamer excelStreamer;
-    private final JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter;
+    private final ObjectToSpreadsheetConverter objectToSpreadsheetConverter;
 
-    public ExcelHandlerMethodReturnValueHandler(ExcelStreamer excelStreamer, JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter) {
+    ExcelHandlerMethodReturnValueHandler(ExcelStreamer excelStreamer, ObjectToSpreadsheetConverter objectToSpreadsheetConverter) {
         super(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         this.excelStreamer = excelStreamer;
-        this.jacksonToSpreadsheetConverter = jacksonToSpreadsheetConverter;
+        this.objectToSpreadsheetConverter = objectToSpreadsheetConverter;
     }
 
     @Override
@@ -36,6 +34,6 @@ public class ExcelHandlerMethodReturnValueHandler extends AbstractHttpMessageCon
 
     @Override
     protected void writeInternal(Object input, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-        excelStreamer.streamSpreadsheet(outputMessage.getBody(), jacksonToSpreadsheetConverter.convert((List<Object>) input));
+        excelStreamer.streamSpreadsheet(outputMessage.getBody(), objectToSpreadsheetConverter.convert((List<Object>) input));
     }
 }

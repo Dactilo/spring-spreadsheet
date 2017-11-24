@@ -1,25 +1,26 @@
 package io.dactilo.sumbawa.spring.spreadsheets.fiters.csv;
 
-import io.dactilo.sumbawa.spring.spreadsheets.converter.api.JacksonToSpreadsheetConverter;
+import io.dactilo.sumbawa.spring.spreadsheets.converter.SpringSpreadsheetConfiguration;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVPrinterFactory;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVStreamer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
 @Configuration
+@Import(SpringSpreadsheetConfiguration.class)
 public class CSVFormatterConfiguration extends WebMvcConfigurerAdapter {
-    @Bean
-    public CSVHandlerMethodReturnValueHandler csvHandlerMethodReturnValueHandler() {
-        return new CSVHandlerMethodReturnValueHandler(csvStreamer(), jacksonToSpreadsheetConverter());
-    }
+    @Autowired
+    private SpringSpreadsheetConfiguration springSpreadsheetConfiguration;
 
     @Bean
-    public JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter() {
-        return new JacksonToSpreadsheetConverter();
+    public CSVHandlerMethodReturnValueHandler csvHandlerMethodReturnValueHandler() {
+        return new CSVHandlerMethodReturnValueHandler(csvStreamer(), springSpreadsheetConfiguration.jacksonToSpreadsheetConverter());
     }
 
     @Bean

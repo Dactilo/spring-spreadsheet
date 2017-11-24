@@ -1,27 +1,26 @@
 package io.dactilo.sumbawa.spring.spreadsheets.fiters.excel;
 
-import io.dactilo.sumbawa.spring.spreadsheets.converter.api.JacksonToSpreadsheetConverter;
-import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVPrinterFactory;
-import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVStreamer;
+import io.dactilo.sumbawa.spring.spreadsheets.converter.SpringSpreadsheetConfiguration;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.excel.ExcelStreamer;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.excel.XSFFWorkbokFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
 @Configuration
+@Import(SpringSpreadsheetConfiguration.class)
 public class ExcelFormatterConfiguration extends WebMvcConfigurerAdapter {
-    @Bean
-    public ExcelHandlerMethodReturnValueHandler csvHandlerMethodReturnValueHandler() {
-        return new ExcelHandlerMethodReturnValueHandler(excelStreamer(), jacksonToSpreadsheetConverter());
-    }
+    @Autowired
+    private SpringSpreadsheetConfiguration springSpreadsheetConfiguration;
 
     @Bean
-    public JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter() {
-        return new JacksonToSpreadsheetConverter();
+    public ExcelHandlerMethodReturnValueHandler excelHandlerMethodReturnValueHandler() {
+        return new ExcelHandlerMethodReturnValueHandler(excelStreamer(), springSpreadsheetConfiguration.jacksonToSpreadsheetConverter());
     }
 
     @Bean
@@ -36,6 +35,6 @@ public class ExcelFormatterConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(csvHandlerMethodReturnValueHandler());
+        converters.add(excelHandlerMethodReturnValueHandler());
     }
 }

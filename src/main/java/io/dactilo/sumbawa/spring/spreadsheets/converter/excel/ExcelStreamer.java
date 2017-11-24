@@ -95,7 +95,7 @@ public class ExcelStreamer implements SpreadsheetStreamer {
 
     }
 
-    public void setColumnSizes(XSSFSheet sheet, List<String> spreadsheetHeader) {
+    private void setColumnSizes(XSSFSheet sheet, List<String> spreadsheetHeader) {
         int i = 0;
         for (String headerColumn : spreadsheetHeader) {
             sheet.setColumnWidth(i, DEFAULT_COLUMN_SIZE);
@@ -103,9 +103,9 @@ public class ExcelStreamer implements SpreadsheetStreamer {
         }
     }
 
-    public void createHeader(Map<String, CellStyle> styles,
-                             XSSFSheet sheet,
-                             List<String> header) {
+    private void createHeader(Map<String, CellStyle> styles,
+                              XSSFSheet sheet,
+                              List<String> header) {
         final XSSFRow rowhead = sheet.createRow(0);
 
         int i = 0;

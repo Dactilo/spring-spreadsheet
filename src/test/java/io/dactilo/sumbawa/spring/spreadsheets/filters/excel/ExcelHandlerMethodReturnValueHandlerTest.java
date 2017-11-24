@@ -119,8 +119,15 @@ class SampleController {
         ), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "excel", method = RequestMethod.GET, produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @RequestMapping(value = "csv", method = RequestMethod.GET, produces = "text/csv")
     public ResponseEntity<List<SpreadsheetStreamerTest.ObjectExampleDTO>> csv() {
+        return new ResponseEntity<>(Collections.singletonList(
+                new SpreadsheetStreamerTest.ObjectExampleDTO("field 1", 2, null, false)
+        ), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "excel", method = RequestMethod.GET, produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity<List<SpreadsheetStreamerTest.ObjectExampleDTO>> excel() {
         return new ResponseEntity<>(Collections.singletonList(
                 new SpreadsheetStreamerTest.ObjectExampleDTO("field 1", 2, null, false)
         ), HttpStatus.OK);

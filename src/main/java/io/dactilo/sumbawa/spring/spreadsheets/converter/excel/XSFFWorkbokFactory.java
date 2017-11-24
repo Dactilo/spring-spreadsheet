@@ -2,8 +2,11 @@ package io.dactilo.sumbawa.spring.spreadsheets.converter.excel;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * XSFFWorkbook factory
+ */
 public class XSFFWorkbokFactory {
-    public XSSFWorkbook createInstance() {
+    XSSFWorkbook createInstance() {
         return new XSSFWorkbook();
     }
 }

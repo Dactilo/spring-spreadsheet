@@ -1,6 +1,6 @@
 package io.dactilo.sumbawa.spring.spreadsheets.fiters.csv;
 
-import io.dactilo.sumbawa.spring.spreadsheets.converter.api.JacksonToSpreadsheetConverter;
+import io.dactilo.sumbawa.spring.spreadsheets.converter.api.ObjectToSpreadsheetConverter;
 import io.dactilo.sumbawa.spring.spreadsheets.converter.csv.CSVStreamer;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -10,16 +10,17 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class CSVHandlerMethodReturnValueHandler extends AbstractHttpMessageConverter<Object> {
     private final CSVStreamer csvStreamer;
-    private final JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter;
+    private final ObjectToSpreadsheetConverter objectToSpreadsheetConverter;
 
-    public CSVHandlerMethodReturnValueHandler(CSVStreamer csvStreamer, JacksonToSpreadsheetConverter jacksonToSpreadsheetConverter) {
+    CSVHandlerMethodReturnValueHandler(CSVStreamer csvStreamer, ObjectToSpreadsheetConverter objectToSpreadsheetConverter) {
         super(new MediaType("text", "csv"));
         this.csvStreamer = csvStreamer;
-        this.jacksonToSpreadsheetConverter = jacksonToSpreadsheetConverter;
+        this.objectToSpreadsheetConverter = objectToSpreadsheetConverter;
     }
 
     @Override
@@ -34,6 +35,10 @@ public class CSVHandlerMethodReturnValueHandler extends AbstractHttpMessageConve
 
     @Override
     protected void writeInternal(Object input, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-        csvStreamer.streamSpreadsheet(outputMessage.getBody(), jacksonToSpreadsheetConverter.convert((List<Object>) input));
+        if(!(input instanceof List)) {
+            csvStreamer.streamSpreadsheet(outputMessage.getBody(), objectToSpreadsheetConverter.convert(Collections.singletonList(input)));
+        } else {
+            csvStreamer.streamSpreadsheet(outputMessage.getBody(), objectToSpreadsheetConverter.convert((List<Object>) input));
+        }
     }
 }
