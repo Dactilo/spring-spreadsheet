@@ -22,8 +22,8 @@ public class CSVStreamerTest extends SpreadsheetStreamerTest {
         );
 
         assertEquals("field1;field2;field3;field4\r\n" +
-                        "field 1;2;2006-04-04T22:00:00Z;true\r\n" +
-                        "field 1 2;23;2006-04-04T22:00:00Z;false\r\n",
+                        "field 1;2;2006-04-05T00:00:00;true\r\n" +
+                        "field 1 2;23;2006-04-05T00:00:00;false\r\n",
                 new String(csvStreamer.toByteArray(spreadsheetConverter.convert(data)))
         );
     }
@@ -36,8 +36,8 @@ public class CSVStreamerTest extends SpreadsheetStreamerTest {
         );
 
         assertEquals("Maison;field2;field3;field4\r\n" +
-                        "field 1;2;2006-04-04T22:00:00Z;true\r\n" +
-                        "field 1 2;23;2006-04-04T22:00:00Z;false\r\n",
+                        "field 1;2;2006-04-05T00:00:00;true\r\n" +
+                        "field 1 2;23;2006-04-05T00:00:00;false\r\n",
                 new String(csvStreamer.toByteArray(spreadsheetConverter.convert(data)))
         );
     }
@@ -50,8 +50,8 @@ public class CSVStreamerTest extends SpreadsheetStreamerTest {
         );
 
         assertEquals("field1;field2;field3;field5;field4\r\n" +
-                        "field 1;2;2006-04-04T22:00:00Z;FIELD1-> field 1;true\r\n" +
-                        "field 1 2;23;2006-04-04T22:00:00Z;FIELD1-> field 4;false\r\n",
+                        "field 1;2;2006-04-05T00:00:00;FIELD1-> field 1;true\r\n" +
+                        "field 1 2;23;2006-04-05T00:00:00;FIELD1-> field 4;false\r\n",
                 new String(csvStreamer.toByteArray(spreadsheetConverter.convert(data)))
         );
     }

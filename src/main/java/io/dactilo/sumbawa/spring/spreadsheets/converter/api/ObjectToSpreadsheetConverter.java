@@ -2,10 +2,9 @@ package io.dactilo.sumbawa.spring.spreadsheets.converter.api;
 
 import java.beans.Introspector;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparing;
 
 /**
  * Converts a list of Java Beans into a {@link Spreadsheet} description.
@@ -18,6 +17,8 @@ import static java.util.Comparator.comparing;
  * </ul>
  */
 public class ObjectToSpreadsheetConverter implements SpreadsheetConverter {
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
     @Override
     public Spreadsheet convert(List<?> input) {
         final List<Map<String, Object>> inputsAsMap =
@@ -50,7 +51,7 @@ public class ObjectToSpreadsheetConverter implements SpreadsheetConverter {
 
                         if (spreadsheetColumnSerializer == null) {
                             if (methodResult instanceof Date) {
-                                methodResult = ((Date) methodResult).toInstant();
+                                methodResult = dateFormat.format((Date) methodResult);
                             }
                         } else {
                             methodResult = spreadsheetColumnSerializer.serializer().getDeclaredConstructor().newInstance().serialize(methodResult);
