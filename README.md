@@ -3,7 +3,7 @@ This component will allow your spring-web controllers
 to produce CSV or Microsoft Excel instead of JSON files without writing any code.
 
 ## Setup
-Add this dependency to your maven project 
+Add this dependency to your maven project:
 ```
 <dependency>
     <groupId>io.dactilo.sumbawa</groupId>
@@ -14,11 +14,11 @@ Add this dependency to your maven project
 
 ## Usage 
 ### CSV support 
-* Add @EnableCSVFormatter annotation to your spring-web configuration class.
+* Add `@EnableCSVFormatter` annotation to your spring-web configuration class.
 * Any controller returning a List of beans and producing text/csv files will automatically be serialized into a CSV file (see example bellow)
  
 ### Excel support 
-* Add @EnableExcelFormatter annotation to your spring-web configuration class.
+* Add `@EnableExcelFormatter` annotation to your spring-web configuration class.
 * Any controller returning a List of beans and producing vnd.openxmlformats-officedocument.spreadsheetml.sheet files will automatically be serialized into a valid Excel file (see example bellow)
 
 ### Example 
@@ -35,7 +35,7 @@ class SampleExcelConfiguration extends WebMvcConfigurerAdapter {
 }
 ```
 
-Spring-web controller 
+Spring-web controller:
 ```
 @Controller
 @RequestMapping("/")
@@ -107,11 +107,14 @@ In the previous example:
         
 ### Tweaking 
 Several annotations are supported. Suppose you are returning a list of ObjectExampleDTO (see the previous example).
-You can add the following to the ObjectExampleDTO class definition getters: 
-* SpreadsheetColumnIgnore: to prevents the column to be created 
-* SpreadsheetColumnName: to override the name of the column (by default, it will use the name of the field) 
-* SpreadsheetColumnOrder: to enforce the order of the columns (the lowest will be on the left)
-* SpreadsheetColumnSerializer: the custom the way to the object is serialized (by default, toString() will be used). 
+You can add the following annotations to the ObjectExampleDTO class definition getters: 
+
+Annotations                        | Definition
+---------------------------------- | -------------
+`SpreadsheetColumnIgnore`          | to prevents the column to be created
+`SpreadsheetColumnName`            | to override the name of the column (by default, it will use the name of the field)
+`SpreadsheetColumnOrder`           | to enforce the order of the columns (the lowest will be on the left)
+`SpreadsheetColumnSerializer`      | the custom the way to the object is serialized (by default, toString() will be used). 
 
 ## TODO / Next steps 
 * CSV / Excel importation support 
