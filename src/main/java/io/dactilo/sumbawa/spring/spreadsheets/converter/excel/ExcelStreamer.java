@@ -72,7 +72,7 @@ public class ExcelStreamer implements SpreadsheetStreamer {
         if (!styles.containsKey("header")) {
             final CellStyle style = workbook.createCellStyle();
             style.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
-            style.setFillPattern(style.SOLID_FOREGROUND);
+            //style.setFillPattern(style.SOLID_FOREGROUND);
 
             final Font font = workbook.createFont();
             font.setColor((short) 9);
