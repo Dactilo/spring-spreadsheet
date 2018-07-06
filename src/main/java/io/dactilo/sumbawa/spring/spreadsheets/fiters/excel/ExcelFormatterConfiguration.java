@@ -20,7 +20,7 @@ public class ExcelFormatterConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public ExcelHandlerMethodReturnValueHandler excelHandlerMethodReturnValueHandler() {
-        return new ExcelHandlerMethodReturnValueHandler(excelStreamer(), springSpreadsheetConfiguration.jacksonToSpreadsheetConverter());
+        return new ExcelHandlerMethodReturnValueHandler(excelStreamer(), springSpreadsheetConfiguration.objectToSpreadsheetConvert());
     }
 
     @Bean

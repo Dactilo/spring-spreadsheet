@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringSpreadsheetConfiguration {
     @Bean
-    public ObjectToSpreadsheetConverter jacksonToSpreadsheetConverter() {
+    public ObjectToSpreadsheetConverter objectToSpreadsheetConvert() {
         return new ObjectToSpreadsheetConverter();
     }
 }

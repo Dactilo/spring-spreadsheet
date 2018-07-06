@@ -20,7 +20,7 @@ public class CSVFormatterConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public CSVHandlerMethodReturnValueHandler csvHandlerMethodReturnValueHandler() {
-        return new CSVHandlerMethodReturnValueHandler(csvStreamer(), springSpreadsheetConfiguration.jacksonToSpreadsheetConverter());
+        return new CSVHandlerMethodReturnValueHandler(csvStreamer(), springSpreadsheetConfiguration.objectToSpreadsheetConvert());
     }
 
     @Bean

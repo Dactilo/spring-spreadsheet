@@ -6,7 +6,7 @@
 
     <groupId>io.dactilo.sumbawa</groupId>
     <artifactId>spring-spreadsheets</artifactId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.5</version>
 
     <licenses>
         <license>
